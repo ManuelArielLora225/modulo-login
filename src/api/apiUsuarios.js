@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export function fetchApi(url){
+export function useFetchApi(url){
 
     const [data, setData] = useState(null)
     const [error, setError] = useState(null)
@@ -14,7 +14,7 @@ export function fetchApi(url){
     
     fetch(url)
         .then((res) => {
-            if(!res.ok) new Error('Este usuario no esta registrado')
+            if(!res.ok) throw new Error('Este usuario no esta registrado')
                return res.json()
         })
         .then((data) => {
@@ -22,8 +22,8 @@ export function fetchApi(url){
             setError(null)
         })
         .catch((err) => {
-          res.statusCode(400).json(`A habido un error: ${error}`)
-          setData(null)
+            setError(err.message)
+            setData(null)
         })
         .finally(() => { setLoading(false)})
     }, [url])

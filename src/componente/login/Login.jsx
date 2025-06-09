@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Iniciar from './Iniciar'
 import Registrar from './Registrar'
 
+
 const Login = () => {
     const [logeado, setLogeado] = useState(false)
 

@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import Info from '../info/Info'
 
 const Iniciar = () => {
 
@@ -11,9 +12,10 @@ const Iniciar = () => {
         const contrasena = e.target.password.value
         setCorreo(correo)
         setContrasena(contrasena)
-        e.target.reset()
     }
 
+   console.log(correo)
+   console.log(contrasena)
 
 
     return(
@@ -34,6 +36,12 @@ const Iniciar = () => {
                 </form>
 
             </div>
+         {correo && contrasena && (
+            <div>
+                <Info correo={correo} contrasena={contrasena}/>
+            </div>
+         )}
+
         </div>
     )
 }
