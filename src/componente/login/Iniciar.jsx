@@ -1,10 +1,13 @@
 import React, {useState} from 'react'
 import Info from '../info/Info'
+import '../hojas-estilos/styles.css'
+
 
 const Iniciar = () => {
 
     const [correo, setCorreo] = useState(null)
     const [contrasena, setContrasena] =  useState(null)
+    const [secionInicada, setSecionIniciada] = useState(false)
 
     const iniciar = (e) => {
         e.preventDefault();
@@ -12,14 +15,15 @@ const Iniciar = () => {
         const contrasena = e.target.password.value
         setCorreo(correo)
         setContrasena(contrasena)
+        setSecionIniciada(true)
     }
 
-   console.log(correo)
-   console.log(contrasena)
 
 
     return(
-        <div className='contenedor-iniciar'>
+        <>
+        {!secionInicada && 
+            <div className='contenedor-iniciar'>
 
             <h1 className='titulo'>Inicia Sesión</h1>
 
@@ -36,13 +40,22 @@ const Iniciar = () => {
                 </form>
 
             </div>
-         {correo && contrasena && (
+
+
+        </div>
+         }
+
+         {secionInicada && 
+            <div className='contenedor-iniciar'>
+                {correo && contrasena && (
             <div>
                 <Info correo={correo} contrasena={contrasena}/>
             </div>
          )}
+            </div>
+         }
 
-        </div>
+        </>
     )
 }
 

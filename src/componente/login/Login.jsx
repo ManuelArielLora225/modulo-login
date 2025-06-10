@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import Iniciar from './Iniciar'
 import Registrar from './Registrar'
+import '../hojas-estilos/styles.css'
+
+
 
 
 const Login = () => {
@@ -9,10 +12,12 @@ const Login = () => {
     return(
 
     <div className='conenedor-general-login'>
+    
+
 
         <div className='botones-logearse'>
 
-            <button className='boton-iniciar'
+           <button className='boton-iniciar'
             onClick={() => {setLogeado(true)}}>Iniciar Sesion</button>
 
             <button className='boton-registrar'
