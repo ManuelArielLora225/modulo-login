@@ -5,6 +5,8 @@ import '../hojas-estilos/styles.css'
 const Registrar = () => {
 
     const [registrado, setRegistrado] = useState(false)
+    const [cargando, setCargando] = useState(false)
+    const [error, setError] =  useState(false)
 
     const registrarse = async (e) => {
         e.preventDefault();
@@ -21,10 +23,21 @@ const Registrar = () => {
         try {
             const respuesta = await axios.post('https://api-usuarios-1-49gv.onrender.com/api/usuarios', datos )
             console.log('Respuesta del servidor:', respuesta.data)
-            if(respuesta){ setRegistrado(true)}
+            
+        if(!respuesta){
+            setCargando(true)
+        } else {
+            setCargando(false)
+            setRegistrado(true)
+        }
+            
         } catch (error){
             console.error('Error con el servidor', error)
+            setError(true)
         }
+
+
+        
       
     }
   
@@ -34,7 +47,7 @@ const Registrar = () => {
 
         <div className='contenedor-registrar'>
 
-         {!registrado && 
+         {!registrado && !cargando && !error &&
          <>
           <h1 className='titulo'>Registrarse</h1>
 
@@ -42,23 +55,23 @@ const Registrar = () => {
 
                 <form onSubmit={registrarse}>
 
-                    <label htmlFor='nombre'>Nombre:</label>
-                    <input type='text' id='nombre' name='nombre' /><br />
+                    <label htmlFor='nombre'>Nombre: <span className='required'>*</span></label>
+                    <input type='text' id='nombre' name='nombre' required /><br />
 
-                    <label htmlFor='correo'>Correo:</label>
-                    <input type='email' id='correo' name='correo' /><br />
+                    <label htmlFor='correo'>Correo: <span className='required'>*</span></label>
+                    <input type='email' id='correo' name='correo'  required/><br />
 
-                    <label htmlFor='password'>Contraseña:</label>
-                    <input type='password' id='password' name='password' /><br />
+                    <label htmlFor='password'>Contraseña: <span className='required'>*</span></label>
+                    <input type='password' id='password' name='password'  placeholder='minimo 6 caracteres'  required/><br />
 
-                    <label htmlFor='direccion'>Direccion:</label>
-                    <input type='text' id='direccion' name='direccion' /><br />
+                    <label htmlFor='direccion'>Direccion: <span className='required'>*</span></label>
+                    <input type='text' id='direccion' name='direccion'  required/><br />
 
-                    <label htmlFor='telefono'>Telefono:</label>
-                    <input type='text' id='telefono' name='telefono' /><br />
+                    <label htmlFor='telefono'>Telefono: <span className='required'>*</span></label>
+                    <input type='text' id='telefono' name='telefono' required /><br />
       
-                    <label htmlFor='edad'>Edad:</label>
-                    <input type='number' id='edad' name='edad' /><br />
+                    <label htmlFor='edad'>Edad: <span className='required'>*</span></label>
+                    <input type='number' id='edad' name='edad'  required/><br />
 
 
                     <input type='submit' value='Registrarse' />
@@ -68,7 +81,9 @@ const Registrar = () => {
             </>
         }
 
-            {registrado && <h1>{`Usuario correctamente registrado`}</h1>}
+            {registrado && !cargando && !error &&<h1 className='registrado'>Usuario correctamente registrado</h1>}
+            {cargando && <h1 className='cargando'>Cargando...</h1>}
+            {error && <h1 className='error'>Servidor no pudo procesar la solicitud</h1>}
 
         </div>
     )

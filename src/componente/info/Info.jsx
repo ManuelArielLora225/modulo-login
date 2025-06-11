@@ -9,7 +9,7 @@ import '../hojas-estilos/styles.css'
 const Info = ({correo, contrasena}) => {
 
  const [actualizar, setActualizar] = useState(false)
- const { data, error, loading } = useFetchApi('https://api-usuarios-1-49gv.onrender.com/api/usuarios')
+const { data, error, loading } = useFetchApi('https://api-usuarios-1-49gv.onrender.com/api/usuarios')
  const [eliminado, setEliminado] = useState(false)
 
 
@@ -49,6 +49,8 @@ return (
         <h3>{usuarioEncontrado.correo}</h3>
         <h1>Contraseña:</h1>
         <h3>{usuarioEncontrado.contrasena}</h3>
+        <h1>Telefono</h1>
+        <h3>{usuarioEncontrado.telefono}</h3>
         <h1>Direccion:</h1>
         <h3>{usuarioEncontrado.direccion}</h3>
         <h1>Edad:</h1>
@@ -73,7 +75,7 @@ return (
 
        {actualizar && !eliminado && <Actualizar id={usuarioEncontrado.id} />}
 
-       {eliminado && <h1 className='eliminado'>ELiminado exitosamebte</h1>}
+       {eliminado && <h1 className='eliminado'>Eliminado exitosamente</h1>}
 
     </div>
 )
